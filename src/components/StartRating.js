@@ -9,7 +9,7 @@ const StarRating = (props) => {
             {/* <FaStarHalfAlt/> */}
             {[...Array(5)].map((arr, i) => {
                 const ratingVal = i + 1;
-                return (<label>
+                return (<label key={i}>
                     <input type="radio"
                         name="rating"
                         value={ratingVal}
