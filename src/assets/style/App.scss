@@ -1,0 +1,59 @@
+@import "~bootstrap/scss/bootstrap";
+@import './variable.scss';
+body {
+
+	font-family: $font-secondary;
+	background: $white;
+	font-size: 15px;
+	line-height: 1.8;
+	font-weight: 300;
+    color:  $darken;
+    .mt-10{
+        margin-top: 10rem;
+    }
+    .navbar{
+        background-color: #aed4e3;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 9;
+        .logo{
+            height: 3rem;
+        }
+        .btn{
+            width: 5rem;
+        }
+
+    
+}
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+.card-body{
+    background-color: #afd5e330;
+    // background-color:  #f0c5161a;
+
+   
+    h5 {
+        width: 70%;
+    }
+}
+.image-container{
+img{
+    max-width: 100%;
+    object-fit: contain;
+}
+
+}
+.description-container{
+    .price-info{
+        .subtitle{
+            opacity: 0.7;
+            // font-size: 2rem;
+        }
+       
+    }
+
+}
+}
