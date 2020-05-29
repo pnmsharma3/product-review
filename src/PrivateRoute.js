@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Route } from "react-router-dom";
 
-const PrivateRoute = ({ children, ...rest }) => {
-
+const PrivateRoute = ({ component: Component, ...rest}, ...props) => {
     const isAuthenticated = () => {
         let user = localStorage.getItem('user');
         return !!user.length;
@@ -11,9 +10,10 @@ const PrivateRoute = ({ children, ...rest }) => {
     return (
         <Route
             {...rest}
+       
             render={({ location }) =>
                 isAuthenticated() ? (
-                    children
+                    <Component {...props} />
                 ) : (
                         <Redirect
                             to={{

@@ -6,14 +6,15 @@ const Header = () => {
 
   useEffect(() => {
     let user = localStorage.getItem('user');
-    setIsLogedIn(!!user.length)
+    setIsLogedIn(user && !!user.length?true:false)
   }, []);
 
   const handleUserAuth = () => {
     let user = {
-      name: 'Mr User',
-      id: '',
-      token: ''
+        "name": "poonam sharma",
+        "email": "poonam.sharma@de",
+        "createdAt": "2020-05-29T15:27:33.068Z",
+        "_id": "KmB13euigWpxT9FN"
     }
     if (!isLogedIn) {
       localStorage.setItem('user', JSON.stringify(user));

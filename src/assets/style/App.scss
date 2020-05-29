@@ -40,9 +40,12 @@ a, a:hover, a:focus, a:active {
     }
 }
 .image-container{
+    text-align: center;
+   
 img{
     max-width: 100%;
     object-fit: contain;
+    // max-height: 600px;
 }
 
 }
@@ -54,6 +57,26 @@ img{
         }
        
     }
+ 
+  
 
+}
+.review-container{
+    .review-form{
+        .btn{
+            width: 100%;
+        }
+        input[type="radio"]{
+            display: none;
+        }
+    }
+
+}
+footer{
+    height: 5rem;
+    padding: 3rem;
+    text-align: center;
+    background-color: #ffc10630;
+    margin-top: 5rem;
 }
 }

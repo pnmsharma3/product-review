@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './assets/style/App.scss';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Products from './Products';
 import ProductDetails from './ProductDetails';
 
@@ -21,13 +22,13 @@ function App() {
           <Route exact path="/">
           <Products/>
           </Route>
-          <PrivateRoute path="/product/:id">
-            <ProductDetails/>
+          <PrivateRoute path="/product/:slug">
+            <ProductDetails />
             </PrivateRoute>
         </Switch>
     </Router>
 
- 
+ <Footer/>
     </>
   );
 }

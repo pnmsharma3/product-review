@@ -1,33 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
-import StartRating from './components/StartRating'
-let product = {
-    title: 'Best vegetable  abc',
-    subTitle: "Sweet italian sausage, cheese, tomato sauce, lasagna noodles",
-    price: "$20"
-}
-const ProductDetails = () => {
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import ProductDescription from './components/ProductDescription';
+import ReviewForm from './components/Review'
+import { useParams } from "react-router-dom";
+
+const ProductDetails = (props) => {
+    let { slug } = useParams();
+    const [product, setProduct] = useState([])
+    const [productReviews, setProductReviews] = useState([])
+    const [currentUser, setCurrentUser] = useState(null)
+  
+    const [isReviewSubmited, setIsReviewSubmited] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            const url = `/products/${slug}`;
+            const { data } = await axios(url);
+            setProduct(data || []);
+            // current user
+            let user = localStorage.getItem('user');
+            setCurrentUser(JSON.parse(user));
+            getReviews(data._id);
+        }
+        fetchData();
+    }, [slug]);
+    
+    const getReviews=async(id)=>{
+        const url = `/review?product_id=${id}`;
+        const { data } = await axios(url);
+        console.log('reddata',data.data)
+        setProductReviews(data.data)
+        // /review?user_id=cMY5BpviAi3ZnkHc&product_id=7DeU3dLYUr7JAgeJ
+
+    }
+    console.log('currentUser',currentUser)
+    const submitReview = async (review) => {
+        setIsReviewSubmited(true)
+        let reviewDetails = { ...review,
+             user_id:currentUser._id,
+              user_name: currentUser.name ,
+               product_id: product._id }
+        // const { data } = await axios.post(`${props.ApiHost}api/order`, {
+        const { data } = await axios.post(`/review`, {...reviewDetails})
+        console.log('data',data)
+    }
+
+
+
+
     return (
         <div className="container mt-10">
-            <div className="row">
-                <div className="col image-container">
-                    <img src="/image-1.jpeg" />
-                </div>
-                <div className="col description-container">
-                    <div className="price-info">
-                        <h3>{product.title}</h3>
-                        <h5 className="subtitle">{product.subTitle}</h5>
-                       
-                        <h4>{product.price}</h4>
-                        <hr />
-                    </div>
-
-               
+            <ProductDescription product={product} />
+            {/* review */}
+             {/* <span className="pl-5"> 10  Reviews</span> */}
+            <div className="row pt-5 review-container">
+                <h3 className="pl-2"> Customer Reviews</h3>
+                
+                <div className="col-12 create-review-container">
+                <hr />
+                    {!isReviewSubmited && !!currentUser && <ReviewForm submitReview={(review) => submitReview(review)} />}
 
 
                 </div>
 
             </div>
-              i am pro
         </div>
 
     );
