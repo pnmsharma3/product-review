@@ -11,6 +11,9 @@ body {
     .mt-10{
         margin-top: 10rem;
     }
+    input[type="radio"]{
+        display: none;
+    }
     .navbar{
         background-color: #aed4e3;
         position: fixed;
@@ -66,9 +69,7 @@ img{
         .btn{
             width: 100%;
         }
-        input[type="radio"]{
-            display: none;
-        }
+      
     }
     .review{
         padding-bottom: 3rem;
