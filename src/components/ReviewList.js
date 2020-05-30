@@ -3,11 +3,11 @@ import { FaUserCircle } from 'react-icons/fa';
 import StarRating from './StarRating';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
-const ReviewList = ({ reviews, submitComment }) => {
+const ReviewList = ({ reviews, submitComment ,isLoggedIn}) => {
     const [showForm, setShowForm] = useState(false);
     const [showComments, setShowComments] = useState(false);
 
-    console.log('reviewsreviewsreviews', reviews)
+    console.log('reviewsreviewsreviews', reviews,isLoggedIn)
     return (
         <>
             {reviews.map((review, i) => <div key={i}>
@@ -17,9 +17,9 @@ const ReviewList = ({ reviews, submitComment }) => {
                         <StarRating rating={review.starRating} size={30} /> <h5>{review.heading}</h5>
                         <p>{review.review}</p>
                         <p className="float-right"> {review.createdAt}</p>
-                        {!showForm && <button className="btn  btn-outline-info" onClick={() => setShowForm(true)}> Comment</button>
+                        {!showForm && isLoggedIn   && <button className="btn  btn-outline-info" onClick={() => setShowForm(true)}> Add comment</button>
                         }
-                        {showForm && <CommentForm onCommentSubmit={(comment) => { setShowForm(false); submitComment({ comment, reviewId: review._id }) }} />
+                        {showForm && isLoggedIn && <CommentForm onCommentSubmit={(comment) => { setShowForm(false); submitComment({ comment, reviewId: review._id }) }} />
                         }
                         {
                          !!review.comments.length ?

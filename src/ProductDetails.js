@@ -19,13 +19,16 @@ const ProductDetails = (props) => {
             const url = `/products/${slug}`;
             const { data } = await axios(url);
             setProduct(data || []);
-            // current user
+            getReviews(data._id);
             let user = localStorage.getItem('user');
             setCurrentUser(JSON.parse(user));
-            getReviews(data._id);
         }
         fetchData();
     }, [slug]);
+
+    useEffect(() => {
+        setCurrentUser(props.user);
+      }, [props.user]);
 
     const getReviews = async (id) => {
         const url = `/review?product_id=${id}`;
@@ -33,7 +36,6 @@ const ProductDetails = (props) => {
         setProductReviews(data.data)
 
     }
-    // console.log('currentUser', currentUser)
     const onReviewSubmit = async (review) => {
         setIsReviewSubmited(true)
         let reviewDetails = {
@@ -76,10 +78,15 @@ const ProductDetails = (props) => {
 
                 <div className="col-12 create-review-container">
                     <hr />
-                   
-                    {!isReviewSubmited && !!currentUser && <ReviewForm submitReview={(review) => onReviewSubmit(review)} />}
+                    {!isReviewSubmited && !!currentUser && <ReviewForm
+                     submitReview={(review) => onReviewSubmit(review)}
+                     />}
                     {!!productReviews.length &&
-                        <ReviewList reviews={productReviews} submitComment={({comment,reviewId})=>onCommentSubmit(comment,reviewId)} />
+                        <ReviewList 
+                        reviews={productReviews} 
+                        isLoggedIn={!!currentUser}
+                        submitComment={({comment,reviewId})=>onCommentSubmit(comment,reviewId)} 
+                        />
                     }
 
                 </div>

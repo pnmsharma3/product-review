@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/image/cafe.png';
 
-const Header = () => {
+const Header = (props) => {
   const [isLogedIn, setIsLogedIn] = useState(false)
 
   useEffect(() => {
@@ -18,10 +18,12 @@ const Header = () => {
     }
     if (!isLogedIn) {
       localStorage.setItem('user', JSON.stringify(user));
-      setIsLogedIn(true)
+      setIsLogedIn(true);
+      props.user(user);
     } else {
       localStorage.clear();
-      setIsLogedIn(false)
+      setIsLogedIn(false);
+      props.user(null);
     }
   }
 
