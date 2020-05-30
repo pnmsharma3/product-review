@@ -76,11 +76,11 @@ const ProductDetails = (props) => {
             <div className="row pt-5 review-container">
                 <h3 className="pl-2"> Customer Reviews</h3>
 
-                <div className="col-12 create-review-container">
-                    <hr />
+                <div className="col-12 create-review-container">        
                     {!isReviewSubmited && !!currentUser && <ReviewForm
                      submitReview={(review) => onReviewSubmit(review)}
                      />}
+                     <hr />
                     {!!productReviews.length &&
                         <ReviewList 
                         reviews={productReviews} 
