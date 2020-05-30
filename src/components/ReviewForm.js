@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import StarRating from './StarRatingForm';
-import ProductDescription from './ProductDescription';
 
 const ReviewForm = ({ submitReview }) => {
     const [heading, setHeading] = useState('');
@@ -13,7 +12,6 @@ const ReviewForm = ({ submitReview }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let customerReview = { starRating, heading, review }
-        console.log(customerReview)
         submitReview(customerReview)
     }
     return (
@@ -29,13 +27,13 @@ const ReviewForm = ({ submitReview }) => {
 
 
                     <div className="form-group">
-                        <label for="exampleFormControlInput1">Add a headline</label>
+                        <label >Add a headline</label>
                         <input type="text" className="form-control" placeholder="What's most important to know?"
                             onChange={(e) => setHeading(e.target.value)} />
                     </div>
 
                     <div className="form-group">
-                        <label for="exampleFormControlTextarea1">Write your review</label>
+                        <label >Write your review</label>
                         <textarea className="form-control" rows="3"
                             placeholder="What did you like or dislike?"
                             onChange={(e) => setReview(e.target.value)}

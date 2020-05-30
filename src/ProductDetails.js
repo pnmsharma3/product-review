@@ -30,23 +30,37 @@ const ProductDetails = (props) => {
     const getReviews = async (id) => {
         const url = `/review?product_id=${id}`;
         const { data } = await axios(url);
-        console.log('reddata', data.data)
         setProductReviews(data.data)
-        // /review?user_id=cMY5BpviAi3ZnkHc&product_id=7DeU3dLYUr7JAgeJ
 
     }
-    console.log('currentUser', currentUser)
-    const submitReview = async (review) => {
+    // console.log('currentUser', currentUser)
+    const onReviewSubmit = async (review) => {
         setIsReviewSubmited(true)
         let reviewDetails = {
             ...review,
             user_id: currentUser._id,
             user_name: currentUser.name,
-            product_id: product._id
+            product_id: product._id,
+            comments:[]
         }
         // const { data } = await axios.post(`${props.ApiHost}api/order`, {
         const { data } = await axios.post(`/review`, { ...reviewDetails })
-        console.log('data', data)
+        getReviews(product._id);
+
+    }
+    const onCommentSubmit =async(comment,reviewId)=>{
+
+        const currentReview=productReviews.filter(re=>re._id===reviewId);
+        let userComment = {
+            comment:comment,
+            user_id: currentUser._id,
+            user_name: currentUser.name,
+        }
+        const editedComments=[...currentReview[0].comments,userComment]
+        const url = `/review?_id=${reviewId}`;
+        const data=await axios.patch(url, {comments:editedComments});
+        getReviews(product._id);
+
     }
 
 
@@ -63,9 +77,9 @@ const ProductDetails = (props) => {
                 <div className="col-12 create-review-container">
                     <hr />
                    
-                    {!isReviewSubmited && !!currentUser && <ReviewForm submitReview={(review) => submitReview(review)} />}
+                    {!isReviewSubmited && !!currentUser && <ReviewForm submitReview={(review) => onReviewSubmit(review)} />}
                     {!!productReviews.length &&
-                        <ReviewList reviews={productReviews} />
+                        <ReviewList reviews={productReviews} submitComment={({comment,reviewId})=>onCommentSubmit(comment,reviewId)} />
                     }
 
                 </div>
