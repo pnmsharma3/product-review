@@ -8,9 +8,7 @@ const ProductDescription = ({product}) => {
         <div className="price-info">
             <h3>{product.title}</h3>
             <h5 className="subtitle">{product.subTitle}</h5>
-           
             <h4>{product.price}</h4>
-         
         </div>
      
       <hr />

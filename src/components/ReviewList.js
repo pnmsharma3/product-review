@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
@@ -8,14 +9,38 @@ import StarRating from './StarRating';
 const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
     const [showForm, setShowForm] = useState(false);
     const [showComments, setShowComments] = useState(false);
+    const [sortBy, setSortBy] = useState(null);
 
+    const [reviewList, setSeviewList] = useState([]);
+
+    useEffect(() => {
+        setSeviewList(reviews)
+    }, [reviews]);
+    const handleSorting = (order) => {
+        let sortedArray = reviews.sort(function (a, b) {
+            if (order === 'Ascending') {
+                return a.starRating - b.starRating;
+            } else return (b.starRating - a.starRating);
+        });
+        setSeviewList(sortedArray)
+        setSortBy(order)
+
+    }
     return (
         <>
-            {reviews.map((review, i) => <div key={i}>
+        <div className="d-flex">
+        <label className="pr-2">Sort rating by: </label>
+            <DropdownButton id="dropdown-basic-button" title={sortBy||'Sort by'}>
+                <Dropdown.Item onClick={() => handleSorting('Ascending')}> Ascending</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleSorting('Descending')}> Descending</Dropdown.Item>
+            </DropdownButton>
+        </div>
+          
+            {reviewList.map((review, i) => <div key={i}>
                 <div className="review pt-3">
                     <h4><FaUserCircle className="pr-3" size={50} />{review.user_name}</h4>
                     <div className="pl-5">
-                        <StarRating rating={review.starRating} size={30}/>
+                        <StarRating rating={review.starRating} size={30} />
 
                         <h5>{review.heading}</h5>
                         <p>{review.review}</p>
