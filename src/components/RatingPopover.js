@@ -11,8 +11,8 @@ import { FaArrowCircleDown} from 'react-icons/fa';
         <Popover.Title as="h3">Rating Details</Popover.Title>
         <Popover.Content>
           <ul>
-            {ratingsCount.map(rating=>
-            <li> <StarRating rating={rating} size={20}/> {rating} Reviews</li>
+            {ratingsCount.map((rating,i)=>
+            <li> <StarRating rating={5-i} size={20}/> {rating} Reviews</li>
             )
   
             }

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import ProductDescription from './components/ProductDescription';
-import ReviewForm from './components/ReviewForm'
 import { useParams } from "react-router-dom";
-import ReviewList from './components/ReviewList';
-import AvgRating from './components/AvgRating';
+import Reviews from './Reviews';
 
 const ProductDetails = (props) => {
     let { slug } = useParams();
@@ -13,7 +11,6 @@ const ProductDetails = (props) => {
     const [productReviews, setProductReviews] = useState([])
     const [currentUser, setCurrentUser] = useState(null)
 
-    const [isReviewSubmited, setIsReviewSubmited] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -38,7 +35,6 @@ const ProductDetails = (props) => {
 
     }
     const onReviewSubmit = async (review) => {
-        setIsReviewSubmited(true)
         let reviewDetails = {
             ...review,
             user_id: currentUser._id,
@@ -67,27 +63,12 @@ const ProductDetails = (props) => {
     return (
         <div className="container mt-10">
             <ProductDescription product={product} />
-            <div className="row pt-5 review-container">
-                <h3 className="pl-2 pb-2 col-12 border-bottom border-info"> Customer Reviews</h3>
-                {!!productReviews.length ? <AvgRating reviews={productReviews} size={30}/>:
-                <p className="pl-2"> No review till now</p>}
-                
-                <div className="col-12 create-review-container">        
-                    {!isReviewSubmited && !!currentUser && <ReviewForm
-                     submitReview={(review) => onReviewSubmit(review)}
-                     />}
-                     <hr />
-                    {!!productReviews.length &&
-                        <ReviewList 
-                        reviews={productReviews} 
-                        isLoggedIn={!!currentUser}
-                        submitComment={({comment,reviewId})=>onCommentSubmit(comment,reviewId)} 
-                        />
-                    }
-
-                </div>
-
-            </div>
+          
+            <Reviews reviews={productReviews} 
+            isLoggedIn={!!currentUser}
+            onReviewCreate={(review)=>onReviewSubmit(review)}
+            onCommentCreate={({comment,reviewId})=>onCommentSubmit(comment,reviewId)} 
+            />
         </div>
 
     );

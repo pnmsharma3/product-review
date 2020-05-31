@@ -50,7 +50,7 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
                         <p className="float-right"> {review.createdAt}</p>
                         { isLoggedIn && (showFormId!==i)&& <button className="btn  btn-outline-info" onClick={() => {setShowForm(true); setShowFormId(i)}}> Add comment</button>
                         }
-                        {showForm && isLoggedIn && (showFormId===i)&&<CommentForm onCommentSubmit={(comment) => { setShowForm(false); submitComment({ comment, reviewId: review._id }) }} />
+                        {showForm && isLoggedIn && (showFormId===i)&&<CommentForm onCommentSubmit={(comment) => { setShowForm(false);setShowFormId(null); submitComment({ comment, reviewId: review._id }) }} />
                         }
                         {
                         !!review.comments.length ?
