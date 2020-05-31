@@ -11,11 +11,11 @@ const Header = (props) => {
 
   const handleUserAuth = () => {
     let user = {
-        "name": "poonam sharma",
-        "email": "poonam.sharma@de",
-        "createdAt": "2020-05-29T15:27:33.068Z",
-        "_id": "KmB13euigWpxT9FN"
-    }
+      "name": "test user",
+      "email": "test@gmail.com",
+      "createdAt": "2020-05-29T15:29:32.019Z",
+      "_id": "cMY5BpviAi3ZnkHc"
+  }
     if (!isLogedIn) {
       localStorage.setItem('user', JSON.stringify(user));
       setIsLogedIn(true);
