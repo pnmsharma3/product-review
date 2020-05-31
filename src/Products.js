@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 
 
-const Products = () => {
+const Products = ({API_URL}) => {
   const [products, setProducts] = useState([]);
   
   useEffect(() => {
     async function fetchData() {
-        const {data} = await axios(`products`);
+        const {data} = await axios(`${API_URL}/products`);
         setProducts(data.data || []);
     }
     fetchData();

@@ -10,7 +10,7 @@ const ProductDescription = ({product}) => {
             <h5 className="subtitle">{product.subTitle}</h5>
            
             <h4>{product.price}</h4>
-            <hr />
+         
         </div>
      
       <hr />

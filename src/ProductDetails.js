@@ -17,7 +17,7 @@ const ProductDetails = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            const url = `/products/${slug}`;
+            const url = `${props.API_URL}/products/${slug}`;
             const { data } = await axios(url);
             setProduct(data || []);
             getReviews(data._id);
@@ -32,7 +32,7 @@ const ProductDetails = (props) => {
       }, [props.user]);
 
     const getReviews = async (id) => {
-        const url = `/review?product_id=${id}`;
+        const url = `${props.API_URL}/review?product_id=${id}`;
         const { data } = await axios(url);
         setProductReviews(data.data)
 
@@ -46,8 +46,7 @@ const ProductDetails = (props) => {
             product_id: product._id,
             comments:[]
         }
-        // const { data } = await axios.post(`${props.ApiHost}api/order`, {
-        const { data } = await axios.post(`/review`, { ...reviewDetails })
+        const { data } = await axios.post(`${props.API_URL}/review`, { ...reviewDetails })
         getReviews(product._id);
 
     }
@@ -60,7 +59,7 @@ const ProductDetails = (props) => {
             user_name: currentUser.name,
         }
         const editedComments=[...currentReview[0].comments,userComment]
-        const url = `/review?_id=${reviewId}`;
+        const url = `${props.API_URL}/review?_id=${reviewId}`;
         const data=await axios.patch(url, {comments:editedComments});
         getReviews(product._id);
     }

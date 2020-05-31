@@ -4,13 +4,13 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Products from './Products';
 import ProductDetails from './ProductDetails';
-
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import PrivateRoute from './PrivateRoute'
+const API_URL='https://calm-sea-61341.herokuapp.com';
 function App() {
 
   const [user, setUser] = useState(null);
@@ -24,10 +24,10 @@ function App() {
     <Router>
     <Switch>
           <Route exact path="/">
-          <Products/>
+          <Products API_URL={API_URL}/>
           </Route>
           <Route exact path="/product/:slug">
-          <ProductDetails user={user}/>
+          <ProductDetails user={user} API_URL={API_URL}/>
           </Route>
           {/* <PrivateRoute path="/product/:slug">
             <ProductDetails />
