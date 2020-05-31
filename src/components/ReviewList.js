@@ -10,6 +10,7 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
     const [showForm, setShowForm] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [sortBy, setSortBy] = useState(null);
+    const [showFormId, setShowFormId] = useState(null);
 
     const [reviewList, setSeviewList] = useState([]);
 
@@ -47,12 +48,12 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
                         <h5 className="pt-1">{review.heading}</h5>
                         <p>{review.review}</p>
                         <p className="float-right"> {review.createdAt}</p>
-                        {!showForm && isLoggedIn && <button className="btn  btn-outline-info" onClick={() => setShowForm(true)}> Add comment</button>
+                        { isLoggedIn && (showFormId!==i)&& <button className="btn  btn-outline-info" onClick={() => {setShowForm(true); setShowFormId(i)}}> Add comment</button>
                         }
-                        {showForm && isLoggedIn && <CommentForm onCommentSubmit={(comment) => { setShowForm(false); submitComment({ comment, reviewId: review._id }) }} />
+                        {showForm && isLoggedIn && (showFormId===i)&&<CommentForm onCommentSubmit={(comment) => { setShowForm(false); submitComment({ comment, reviewId: review._id }) }} />
                         }
                         {
-                            !!review.comments.length ?
+                        !!review.comments.length ?
                                 <div className="mt-4">{review.comments.length} <span className="pl-1">comments</span>
                                     <button className="btn btn-secondary btn-sm ml-2" onClick={() => setShowComments(!showComments)}>{!showComments ? 'Show comments' : 'Hide comments'}</button> </div> : null
                         }{!!review.comments.length && showComments &&
