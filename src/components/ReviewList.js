@@ -8,7 +8,7 @@ import StarRating from './StarRating';
 
 const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
     const [showForm, setShowForm] = useState(false);
-    const [showComments, setShowComments] = useState(false);
+    const [showCommentsId, setShowCommentsId] = useState(null);
     const [sortBy, setSortBy] = useState(null);
     const [showFormId, setShowFormId] = useState(null);
 
@@ -32,7 +32,7 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
         {reviewList.length>1 &&
         <div className="d-flex">
         <label className="pr-2">Sort rating by: </label>
-            <DropdownButton id="dropdown-basic-button" title={sortBy||'Sort by'}>
+            <DropdownButton id="dropdown-basic-button"  size="sm" title={sortBy||'Sort by'} variant="light">
                 <Dropdown.Item onClick={() => handleSorting('Ascending')}> Ascending</Dropdown.Item>
                 <Dropdown.Item onClick={() => handleSorting('Descending')}> Descending</Dropdown.Item>
             </DropdownButton>
@@ -55,8 +55,8 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
                         {
                         !!review.comments.length ?
                                 <div className="mt-4">{review.comments.length} <span className="pl-1">comments</span>
-                                    <button className="btn btn-secondary btn-sm ml-2" onClick={() => setShowComments(!showComments)}>{!showComments ? 'Show comments' : 'Hide comments'}</button> </div> : null
-                        }{!!review.comments.length && showComments &&
+                                    <button className="btn btn-secondary btn-sm ml-2" onClick={() => setShowCommentsId(showCommentsId===i?null:i)}>{showCommentsId!==i ? 'Show comments' : 'Hide comments'}</button> </div> : null
+                        }{!!review.comments.length && (showCommentsId===i ) &&
                             <CommentList comments={review.comments} />
                         }
 
