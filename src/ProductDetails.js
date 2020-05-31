@@ -5,6 +5,7 @@ import ProductDescription from './components/ProductDescription';
 import ReviewForm from './components/ReviewForm'
 import { useParams } from "react-router-dom";
 import ReviewList from './components/ReviewList';
+import AvgRating from './components/AvgRating';
 
 const ProductDetails = (props) => {
     let { slug } = useParams();
@@ -62,11 +63,7 @@ const ProductDetails = (props) => {
         const url = `/review?_id=${reviewId}`;
         const data=await axios.patch(url, {comments:editedComments});
         getReviews(product._id);
-
     }
-
-
-
 
     return (
         <div className="container mt-10">
@@ -75,7 +72,7 @@ const ProductDetails = (props) => {
             {/* <span className="pl-5"> 10  Reviews</span> */}
             <div className="row pt-5 review-container">
                 <h3 className="pl-2"> Customer Reviews</h3>
-
+                <AvgRating reviews={productReviews} size={30}/>
                 <div className="col-12 create-review-container">        
                     {!isReviewSubmited && !!currentUser && <ReviewForm
                      submitReview={(review) => onReviewSubmit(review)}
