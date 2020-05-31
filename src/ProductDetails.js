@@ -68,10 +68,9 @@ const ProductDetails = (props) => {
     return (
         <div className="container mt-10">
             <ProductDescription product={product} />
-            {/* review */}
-            {/* <span className="pl-5"> 10  Reviews</span> */}
             <div className="row pt-5 review-container">
-                <h3 className="pl-2"> Customer Reviews</h3>
+                <h3 className="pl-2 pb-2 col-12 border-bottom border-info"> Customer Reviews</h3>
+              
                 <AvgRating reviews={productReviews} size={30}/>
                 <div className="col-12 create-review-container">        
                     {!isReviewSubmited && !!currentUser && <ReviewForm

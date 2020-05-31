@@ -6,8 +6,6 @@ const ReviewForm = ({ submitReview }) => {
     const [review, setReview] = useState('');
     const [showForm, setShowForm] = useState(false);
 
-
-
     const [starRating, setStarRating] = useState(null);
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,7 +14,7 @@ const ReviewForm = ({ submitReview }) => {
     }
     return (
         <>    {!showForm &&
-            <button className="btn btn-warning" onClick={() => setShowForm(true)}> Add your review</button>
+            <button className="btn btn-warning mt-5" onClick={() => setShowForm(true)}> Add your review</button>
         }
             {showForm &&
                 <form className="review-form mt-5" noValidate onSubmit={handleSubmit}>
