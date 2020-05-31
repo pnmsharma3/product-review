@@ -28,6 +28,7 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
     }
     return (
         <>
+        {reviewList.length>1 &&
         <div className="d-flex">
         <label className="pr-2">Sort rating by: </label>
             <DropdownButton id="dropdown-basic-button" title={sortBy||'Sort by'}>
@@ -35,14 +36,15 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
                 <Dropdown.Item onClick={() => handleSorting('Descending')}> Descending</Dropdown.Item>
             </DropdownButton>
         </div>
-          
-            {reviewList.map((review, i) => <div key={i}>
+}
+          <div className={`${reviewList.length>5?'add-scroll':'' } r-l`}>
+            {reviewList.map((review, i) => <div key={i} >
                 <div className="review pt-3">
                     <h4><FaUserCircle className="pr-3" size={50} />{review.user_name}</h4>
                     <div className="pl-5">
                         <StarRating rating={review.starRating} size={30} />
 
-                        <h5>{review.heading}</h5>
+                        <h5 className="pt-1">{review.heading}</h5>
                         <p>{review.review}</p>
                         <p className="float-right"> {review.createdAt}</p>
                         {!showForm && isLoggedIn && <button className="btn  btn-outline-info" onClick={() => setShowForm(true)}> Add comment</button>
@@ -63,6 +65,7 @@ const ReviewList = ({ reviews, submitComment, isLoggedIn }) => {
 
             </div>)
             }
+            </div>
         </>
 
     );

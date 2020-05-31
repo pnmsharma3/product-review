@@ -32,7 +32,7 @@ const ProductDetails = (props) => {
       }, [props.user]);
 
     const getReviews = async (id) => {
-        const url = `${props.API_URL}/review?product_id=${id}`;
+        const url = `${props.API_URL}/review?product_id=${id}&$sort[createdAt]=-1`;
         const { data } = await axios(url);
         setProductReviews(data.data)
 
@@ -69,8 +69,9 @@ const ProductDetails = (props) => {
             <ProductDescription product={product} />
             <div className="row pt-5 review-container">
                 <h3 className="pl-2 pb-2 col-12 border-bottom border-info"> Customer Reviews</h3>
-              
-                <AvgRating reviews={productReviews} size={30}/>
+                {!!productReviews.length ? <AvgRating reviews={productReviews} size={30}/>:
+                <p className="pl-2"> No review till now</p>}
+                
                 <div className="col-12 create-review-container">        
                     {!isReviewSubmited && !!currentUser && <ReviewForm
                      submitReview={(review) => onReviewSubmit(review)}
