@@ -19,3 +19,14 @@ github: https://github.com/pnmsharma3/product-review-backend
 Server: https://calm-sea-61341.herokuapp.com/
 
 
+## Backend Integration
+A new user can be integrated from header.js
+current test user =
+`
+{
+            "name": "test user",
+            "email": "test@gmail.com",
+            "createdAt": "2020-05-29T15:29:32.019Z",
+            "_id": "cMY5BpviAi3ZnkHc"
+}
+        `
